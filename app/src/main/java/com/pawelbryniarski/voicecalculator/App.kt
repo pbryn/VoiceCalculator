@@ -20,7 +20,5 @@ class App : Application() {
         singletonComponent = DaggerSingletonComponent.builder().voiceRecognitionModule(
                 VoiceRecognitionModule(this)).build()
     }
-
-
 }
 
