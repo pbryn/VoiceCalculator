@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">VoiceCalculator</string>
-    <string name="listen_button">Listen</string>
+    <string name="listen_button">Słuchaj</string>
 </resources>
