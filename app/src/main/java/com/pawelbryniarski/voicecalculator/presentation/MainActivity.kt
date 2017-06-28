@@ -1,6 +1,7 @@
 package com.pawelbryniarski.voicecalculator.presentation
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
@@ -17,15 +18,16 @@ class MainActivity : AppCompatActivity(), CalculatorView, TextToSpeech.OnInitLis
     private companion object {
         val TAG = MainActivity::class.java.name.substring(0, 12)
     }
+
     private val speechText: TextView by bind(R.id.expression)
     @Inject
     lateinit var presenter: VoiceCalculatorPresenter
     @Inject
-    lateinit var speechRecognizer : SpeechRecognizer
+    lateinit var speechRecognizer: SpeechRecognizer
     @Inject
     lateinit var tts: TextToSpeech
     @Inject
-    lateinit var locale : String
+    lateinit var locale: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,11 +96,16 @@ class MainActivity : AppCompatActivity(), CalculatorView, TextToSpeech.OnInitLis
         Log.d("init", "init")
     }
 
-    override fun showCalculationResult(result: String) {
-        tts.speak(result, TextToSpeech.QUEUE_FLUSH, null)
-    }
+    override fun showCalculationResult(result: String) = tts.speak(result)
 
-    override fun showError() {
-        tts.speak(getString(R.string.calculation_error), TextToSpeech.QUEUE_FLUSH, null)
+    override fun showError() = tts.speak(getString(R.string.calculation_error))
+}
+
+private fun TextToSpeech.speak(text: String) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        speak(text, TextToSpeech.QUEUE_FLUSH, null, "id")
+    } else {
+        @Suppress("DEPRECATION")
+        speak(text, TextToSpeech.QUEUE_FLUSH, null)
     }
 }
