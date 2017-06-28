@@ -13,7 +13,7 @@ import android.widget.TextView
 import com.pawelbryniarski.voicecalculator.R
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), CalculatorView, TextToSpeech.OnInitListener {
+class MainActivity : AppCompatActivity(), CalculatorView{
 
     private companion object {
         val TAG = MainActivity::class.java.name.substring(0, 12)
@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity(), CalculatorView, TextToSpeech.OnInitLis
                 presenter.onSpeech(results)
             }
         })
+
         findViewById(R.id.button).setOnClickListener {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale)
@@ -80,6 +81,16 @@ class MainActivity : AppCompatActivity(), CalculatorView, TextToSpeech.OnInitLis
         }
     }
 
+    override fun showSpeech(speech: String) {
+        speechText.text = speech
+    }
+
+    override fun onInit(p0: Int) {}
+
+    override fun showCalculationResult(result: String) = tts.speak(result)
+
+    override fun showError() = tts.speak(getString(R.string.calculation_error))
+
     private fun injectDependencies() {
         DaggerVoicCalculatorComponent
                 .builder()
@@ -87,18 +98,6 @@ class MainActivity : AppCompatActivity(), CalculatorView, TextToSpeech.OnInitLis
                 .build()
                 .inject(this)
     }
-
-    override fun showSpeech(speech: String) {
-        speechText.text = speech
-    }
-
-    override fun onInit(p0: Int) {
-        Log.d("init", "init")
-    }
-
-    override fun showCalculationResult(result: String) = tts.speak(result)
-
-    override fun showError() = tts.speak(getString(R.string.calculation_error))
 }
 
 private fun TextToSpeech.speak(text: String) {

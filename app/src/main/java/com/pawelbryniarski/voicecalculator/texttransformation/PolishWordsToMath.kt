@@ -56,7 +56,7 @@ class PolishWordsToMath @Inject constructor(): WordsToMathExpression {
             90)
 
     override fun transform(words: String): List<MathItem> {
-        return words.split(" ").fold(mutableListOf<MathItem>()) {
+        return words.split(" ").map { it.toLowerCase() }.fold(mutableListOf<MathItem>()) {
             mathItems: MutableList<MathItem>, currentWord ->
             if (isOperation(currentWord)) {
                 mathItems.add(transformOperations(currentWord))

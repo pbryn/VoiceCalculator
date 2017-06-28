@@ -20,7 +20,7 @@ class VoiceRecognitionModule(private val mainActivity: MainActivity) {
 
     @Provides
     fun textToSpeech(locale: String): TextToSpeech {
-        val tts = TextToSpeech(mainActivity, mainActivity)
+        val tts = TextToSpeech(mainActivity, null)
         tts.language = Locale(locale)
         return tts
     }
