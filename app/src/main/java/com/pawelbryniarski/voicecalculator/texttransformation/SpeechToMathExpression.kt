@@ -1,5 +1,5 @@
 package com.pawelbryniarski.voicecalculator.texttransformation
 
-interface WordsToMathExpression {
+interface SpeechToMathExpression {
     fun transform(words: String): List<MathItem>
 }

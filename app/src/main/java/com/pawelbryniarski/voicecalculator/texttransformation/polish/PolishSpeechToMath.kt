@@ -1,8 +1,10 @@
-package com.pawelbryniarski.voicecalculator.texttransformation
+package com.pawelbryniarski.voicecalculator.texttransformation.polish
 
+import com.pawelbryniarski.voicecalculator.texttransformation.MathItem
+import com.pawelbryniarski.voicecalculator.texttransformation.SpeechToMathExpression
 import javax.inject.Inject
 
-class PolishWordsToMath @Inject constructor(): WordsToMathExpression {
+class PolishSpeechToMath @Inject constructor(): SpeechToMathExpression {
 
     private val singlePartNumbers = mapOf("zero" to 0,
             "jeden" to 1,
@@ -94,7 +96,6 @@ class PolishWordsToMath @Inject constructor(): WordsToMathExpression {
             mathItems.add(MathItem.Number(compoundNumbers[currentWord]!!))
         }
     }
-
 
     private fun transformOperations(operation: String) =
             if (operation == "plus" || operation == "dodać" || operation == "+") {

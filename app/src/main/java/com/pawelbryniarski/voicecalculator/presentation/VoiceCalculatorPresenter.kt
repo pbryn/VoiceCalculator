@@ -2,7 +2,7 @@ package com.pawelbryniarski.voicecalculator.presentation
 
 import android.os.Bundle
 import com.pawelbryniarski.voicecalculator.calculation.Calculator
-import com.pawelbryniarski.voicecalculator.texttransformation.PolishWordsToMath
+import com.pawelbryniarski.voicecalculator.texttransformation.polish.PolishSpeechToMath
 import javax.inject.Inject
 
 /**
@@ -10,7 +10,7 @@ import javax.inject.Inject
  */
 class VoiceCalculatorPresenter
 @Inject constructor(private val calculator: Calculator,
-                    private val wordsToMath: PolishWordsToMath,
+                    private val wordsToMath: PolishSpeechToMath,
                     private val view: CalculatorView) {
 
     fun onSpeech(speechData: Bundle) {

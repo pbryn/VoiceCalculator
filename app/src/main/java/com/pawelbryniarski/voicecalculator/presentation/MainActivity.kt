@@ -122,13 +122,14 @@ class MainActivity : AppCompatActivity(), CalculatorView {
             putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
         }.run { speechRecognizer.startListening(this) }
     }
-}
 
-private fun TextToSpeech.speak(text: String) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        speak(text, TextToSpeech.QUEUE_FLUSH, null, "id")
-    } else {
-        @Suppress("DEPRECATION")
-        speak(text, TextToSpeech.QUEUE_FLUSH, null)
+    private fun TextToSpeech.speak(text: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            speak(text, TextToSpeech.QUEUE_FLUSH, null, "id")
+        } else {
+            @Suppress("DEPRECATION")
+            speak(text, TextToSpeech.QUEUE_FLUSH, null)
+        }
     }
 }
+

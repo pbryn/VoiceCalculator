@@ -4,6 +4,7 @@ package com.pawelbryniarski.voicecalculator.texttransformation
 
 import com.pawelbryniarski.voicecalculator.texttransformation.MathItem.Number
 import com.pawelbryniarski.voicecalculator.texttransformation.MathItem.Operation
+import com.pawelbryniarski.voicecalculator.texttransformation.polish.PolishSpeechToMath
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,7 +41,7 @@ class PolishWordsToMathTest(val inputText: String, val outputExpressions: List<M
         }
     }
 
-    val tested: WordsToMathExpression = PolishWordsToMath()
+    val tested: SpeechToMathExpression = PolishSpeechToMath()
 
     @Test
     fun `transforms text to list of math expressions`() {
