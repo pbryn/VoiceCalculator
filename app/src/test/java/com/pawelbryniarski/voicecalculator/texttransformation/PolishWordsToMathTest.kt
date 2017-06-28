@@ -23,6 +23,7 @@ class PolishWordsToMathTest(val inputText: String, val outputExpressions: List<M
                     arrayOf("jedynaście", listOf(Number(11))),
                     arrayOf("dwadzieścia jeden", listOf(Number(21))),
                     arrayOf("sześćdziesiąt dziewięć", listOf(Number(69))),
+                    arrayOf("69 - 4", listOf(Number(69),Operation("-"), Number(4))),
                     arrayOf("jeden plus dwa", listOf(Number(1), Operation("+"), Number(2))),
                     arrayOf("sześć razy osiem", listOf(Number(6), Operation("*"), Number(8))),
                     arrayOf("trzydzieści dwa razy osiem minus pięć plus dwa razy trzydzieści",

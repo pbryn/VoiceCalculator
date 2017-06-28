@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">VoiceCalculator</string>
     <string name="listen_button">Słuchaj</string>
+    <string name="calculation_error">Chyba czegoś nie zrozumiałam, powtórz proszę</string>
 </resources>

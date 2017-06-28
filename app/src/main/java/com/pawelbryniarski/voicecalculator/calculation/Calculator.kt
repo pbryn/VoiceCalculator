@@ -3,14 +3,15 @@ package com.pawelbryniarski.voicecalculator.calculation
 import com.pawelbryniarski.voicecalculator.texttransformation.MathItem
 import com.pawelbryniarski.voicecalculator.texttransformation.MathItem.Number
 import com.pawelbryniarski.voicecalculator.texttransformation.MathItem.Operation
-import java.util.LinkedList
+import java.util.*
+import javax.inject.Inject
 
-class Calculator {
-    private val numbersStack = LinkedList<Number>()
-    private val operatorsStack = LinkedList<Operation>()
+class Calculator @Inject constructor() {
 
     fun calculate(expression: List<MathItem>): Int {
         val ex = LinkedList(expression)
+        val numbersStack = LinkedList<Number>()
+        val operatorsStack = LinkedList<Operation>()
         while (true) {
             val item = ex.pollFirst()
             if (item != null) {
@@ -40,11 +41,11 @@ class Calculator {
                 if (numbersStack.size == 1) {
                     return numbersStack.first.value
                 }
-                val second = numbersStack.poll()
-                val first = numbersStack.poll()
-                val operator = operatorsStack.poll()
+                val first = numbersStack.pollLast()
+                val second = numbersStack.pollLast()
+                val operator = operatorsStack.pollLast()
                 val result = operator.calculate(first.value, second.value)
-                numbersStack.push(Number(result))
+                numbersStack.add(Number(result))
             }
         }
     }
