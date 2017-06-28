@@ -85,8 +85,6 @@ class MainActivity : AppCompatActivity(), CalculatorView{
         speechText.text = speech
     }
 
-    override fun onInit(p0: Int) {}
-
     override fun showCalculationResult(result: String) = tts.speak(result)
 
     override fun showError() = tts.speak(getString(R.string.calculation_error))
