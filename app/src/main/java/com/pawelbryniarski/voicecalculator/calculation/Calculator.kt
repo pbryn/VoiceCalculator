@@ -24,7 +24,7 @@ class Calculator @Inject constructor() {
                                 val result = numbersStack.poll().value * next.value
                                 numbersStack.push(Number(result))
                             } else {
-                                // operation must by "-"
+                                // operation must by followed by "-"
                                 next as Operation
                                 val secondValue = ex.pollFirst() as Number
                                 val result = numbersStack.poll().value * (-1) * secondValue.value

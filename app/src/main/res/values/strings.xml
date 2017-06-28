@@ -2,4 +2,5 @@
     <string name="app_name">VoiceCalculator</string>
     <string name="listen_button">Słuchaj</string>
     <string name="calculation_error">Chyba czegoś nie zrozumiałam, powtórz proszę</string>
+    <string name="unable_to_recognize_speech">Przetwarzanie mowy się nie udało</string>
 </resources>

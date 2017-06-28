@@ -1,22 +1,28 @@
 package com.pawelbryniarski.voicecalculator.presentation
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.TextView
 import com.pawelbryniarski.voicecalculator.R
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), CalculatorView{
+
+class MainActivity : AppCompatActivity(), CalculatorView {
 
     private companion object {
         val TAG = MainActivity::class.java.name.substring(0, 12)
+        val RECORD_AUDIO_REQUEST_CODE = 123
     }
 
     private val speechText: TextView by bind(R.id.expression)
@@ -65,7 +71,7 @@ class MainActivity : AppCompatActivity(), CalculatorView{
             }
 
             override fun onError(p0: Int) {
-                Log.d(TAG, "onError $p0")
+                tts.speak(getString(R.string.unable_to_recognize_speech))
             }
 
             override fun onResults(results: Bundle) {
@@ -74,10 +80,23 @@ class MainActivity : AppCompatActivity(), CalculatorView{
         })
 
         findViewById(R.id.button).setOnClickListener {
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale)
-            intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
-            speechRecognizer.startListening(intent)
+            val permissionCheck = ContextCompat.checkSelfPermission(MainActivity@ this,
+                    Manifest.permission.RECORD_AUDIO)
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity@ this,
+                        arrayOf(Manifest.permission.RECORD_AUDIO),
+                        RECORD_AUDIO_REQUEST_CODE)
+            } else {
+                acceptExpressionToEvaluate()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == RECORD_AUDIO_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                acceptExpressionToEvaluate()
+            }
         }
     }
 
@@ -95,6 +114,13 @@ class MainActivity : AppCompatActivity(), CalculatorView{
                 .voiceRecognitionModule(VoiceRecognitionModule(this))
                 .build()
                 .inject(this)
+    }
+
+    private fun acceptExpressionToEvaluate() {
+        Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale)
+            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
+        }.run { speechRecognizer.startListening(this) }
     }
 }
 

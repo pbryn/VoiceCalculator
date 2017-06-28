@@ -14,13 +14,12 @@ class VoiceCalculatorPresenter
                     private val view: CalculatorView) {
 
     fun onSpeech(speechData: Bundle) {
-
+        view.showSpeech("")
         val speech = speechData.getSpeech()
         view.showSpeech(speech)
         try {
             val result = calculator.calculate(wordsToMath.transform(speech))
-            val resultText = if (result == 1) "jeden" else result.toString()
-            view.showCalculationResult(resultText)
+            view.showCalculationResult(result.toString())
         } catch (e: Exception) {
             view.showError()
         }
