@@ -11,7 +11,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class PolishWordsToMathTest(val inputText: String, val outputExpressions: List<MathItem>) {
+class PolishSpeechParserTest(val inputText: String, val outputExpressions: List<MathItem>) {
 
     companion object {
         @JvmStatic
@@ -44,7 +44,7 @@ class PolishWordsToMathTest(val inputText: String, val outputExpressions: List<M
     val tested: SpeechParser = PolishSpeechParser()
 
     @Test
-    fun `transforms text to list of math expressions`() {
+    fun `parses text to list of math expressions`() {
         assertEquals(outputExpressions, tested.parse(inputText))
     }
 }
