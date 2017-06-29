@@ -1,4 +1,4 @@
-package com.pawelbryniarski.voicecalculator.texttransformation
+package com.pawelbryniarski.voicecalculator.speechparser
 
 sealed class MathItem {
     data class Number(val value: Int) : MathItem()

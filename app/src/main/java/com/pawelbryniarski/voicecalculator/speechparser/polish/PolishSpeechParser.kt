@@ -1,12 +1,12 @@
-package com.pawelbryniarski.voicecalculator.texttransformation.polish
+package com.pawelbryniarski.voicecalculator.speechparser.polish
 
-import com.pawelbryniarski.voicecalculator.texttransformation.MathItem
-import com.pawelbryniarski.voicecalculator.texttransformation.SpeechToMathExpression
-import javax.inject.Inject
+import com.pawelbryniarski.voicecalculator.speechparser.MathItem
+import com.pawelbryniarski.voicecalculator.speechparser.SpeechParser
 
-class PolishSpeechToMath @Inject constructor(): SpeechToMathExpression {
+class PolishSpeechParser : SpeechParser {
 
-    private val singlePartNumbers = mapOf("zero" to 0,
+    private val singlePartNumbers = mapOf(
+            "zero" to 0,
             "jeden" to 1,
             "dwa" to 2,
             "trzy" to 3,
@@ -28,7 +28,8 @@ class PolishSpeechToMath @Inject constructor(): SpeechToMathExpression {
             "dziewiętnaście" to 19,
             "dwadzieścia" to 20)
 
-    private val singleDigitNumbers = mapOf("zero" to 0,
+    private val singleDigitNumbers = mapOf(
+            "zero" to 0,
             "jeden" to 1,
             "dwa" to 2,
             "trzy" to 3,
@@ -39,7 +40,8 @@ class PolishSpeechToMath @Inject constructor(): SpeechToMathExpression {
             "osiem" to 8,
             "dziewięć" to 9)
 
-    private val compoundNumbers = mapOf("dwadzieścia" to 20,
+    private val compoundNumbers = mapOf(
+            "dwadzieścia" to 20,
             "trzydzieści" to 30,
             "czterdzieści" to 40,
             "pięćdziesiąt" to 50,
@@ -57,8 +59,8 @@ class PolishSpeechToMath @Inject constructor(): SpeechToMathExpression {
             80,
             90)
 
-    override fun transform(words: String): List<MathItem> {
-        return words.split(" ").map { it.toLowerCase() }.fold(mutableListOf<MathItem>()) {
+    override fun parse(text: String): List<MathItem> {
+        return text.split(" ").map { it.toLowerCase() }.fold(mutableListOf<MathItem>()) {
             mathItems: MutableList<MathItem>, currentWord ->
             if (isOperation(currentWord)) {
                 mathItems.add(transformOperations(currentWord))
@@ -107,6 +109,6 @@ class PolishSpeechToMath @Inject constructor(): SpeechToMathExpression {
             }
 
     private fun isOperation(word: String): Boolean =
-            word == "plus" || word == "minus" || word == "razy" || word == "odjąć" || word == "dodać"
-                    || word == "+" || word == "-" || word == "x"
+                    word == "plus" || word == "minus" || word == "razy" ||
+                    word == "odjąć" || word == "dodać" || word == "+" || word == "-" || word == "x"
 }

@@ -1,10 +1,10 @@
 @file:Suppress("IllegalIdentifier")
 
-package com.pawelbryniarski.voicecalculator.texttransformation
+package com.pawelbryniarski.voicecalculator.speechparser
 
-import com.pawelbryniarski.voicecalculator.texttransformation.MathItem.Number
-import com.pawelbryniarski.voicecalculator.texttransformation.MathItem.Operation
-import com.pawelbryniarski.voicecalculator.texttransformation.polish.PolishSpeechToMath
+import com.pawelbryniarski.voicecalculator.speechparser.MathItem.Number
+import com.pawelbryniarski.voicecalculator.speechparser.MathItem.Operation
+import com.pawelbryniarski.voicecalculator.speechparser.polish.PolishSpeechParser
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -41,10 +41,10 @@ class PolishWordsToMathTest(val inputText: String, val outputExpressions: List<M
         }
     }
 
-    val tested: SpeechToMathExpression = PolishSpeechToMath()
+    val tested: SpeechParser = PolishSpeechParser()
 
     @Test
     fun `transforms text to list of math expressions`() {
-        assertEquals(outputExpressions, tested.transform(inputText))
+        assertEquals(outputExpressions, tested.parse(inputText))
     }
 }

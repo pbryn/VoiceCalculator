@@ -15,8 +15,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.TextView
 import com.pawelbryniarski.voicecalculator.R
+import com.pawelbryniarski.voicecalculator.presentation.di.DaggerVoiceCalculatorComponent
+import com.pawelbryniarski.voicecalculator.presentation.di.VoiceRecognitionModule
+import com.pawelbryniarski.voicecalculator.presentation.utils.bind
 import javax.inject.Inject
-
 
 class MainActivity : AppCompatActivity(), CalculatorView {
 
@@ -109,7 +111,7 @@ class MainActivity : AppCompatActivity(), CalculatorView {
     override fun showError() = tts.speak(getString(R.string.calculation_error))
 
     private fun injectDependencies() {
-        DaggerVoicCalculatorComponent
+        DaggerVoiceCalculatorComponent
                 .builder()
                 .voiceRecognitionModule(VoiceRecognitionModule(this))
                 .build()

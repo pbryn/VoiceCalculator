@@ -1,4 +1,4 @@
-package com.pawelbryniarski.voicecalculator.presentation
+package com.pawelbryniarski.voicecalculator.presentation.utils
 
 import android.os.Bundle
 import android.speech.SpeechRecognizer

@@ -1,4 +1,4 @@
-package com.pawelbryniarski.voicecalculator.presentation
+package com.pawelbryniarski.voicecalculator.presentation.utils
 
 import android.support.annotation.IdRes
 import android.support.v7.app.AppCompatActivity

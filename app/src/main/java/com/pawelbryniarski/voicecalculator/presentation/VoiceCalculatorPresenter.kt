@@ -2,7 +2,8 @@ package com.pawelbryniarski.voicecalculator.presentation
 
 import android.os.Bundle
 import com.pawelbryniarski.voicecalculator.calculation.Calculator
-import com.pawelbryniarski.voicecalculator.texttransformation.polish.PolishSpeechToMath
+import com.pawelbryniarski.voicecalculator.presentation.utils.getSpeech
+import com.pawelbryniarski.voicecalculator.speechparser.SpeechParser
 import javax.inject.Inject
 
 /**
@@ -10,7 +11,7 @@ import javax.inject.Inject
  */
 class VoiceCalculatorPresenter
 @Inject constructor(private val calculator: Calculator,
-                    private val wordsToMath: PolishSpeechToMath,
+                    private val speechParser: SpeechParser,
                     private val view: CalculatorView) {
 
     fun onSpeech(speechData: Bundle) {
@@ -18,7 +19,7 @@ class VoiceCalculatorPresenter
         val speech = speechData.getSpeech()
         view.showSpeech(speech)
         try {
-            val result = calculator.calculate(wordsToMath.transform(speech))
+            val result = calculator.calculate(speechParser.parse(speech))
             view.showCalculationResult(result.toString())
         } catch (e: Exception) {
             view.showError()

@@ -1,15 +1,15 @@
 package com.pawelbryniarski.voicecalculator.calculation
 
-import com.pawelbryniarski.voicecalculator.texttransformation.MathItem
-import com.pawelbryniarski.voicecalculator.texttransformation.MathItem.Number
-import com.pawelbryniarski.voicecalculator.texttransformation.MathItem.Operation
+import com.pawelbryniarski.voicecalculator.speechparser.MathItem
+import com.pawelbryniarski.voicecalculator.speechparser.MathItem.Number
+import com.pawelbryniarski.voicecalculator.speechparser.MathItem.Operation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class CalculatorTest(val expression: List<MathItem>, val expectedOutput: Int) {
+class SimpleCalculatorTest(val expression: List<MathItem>, val expectedOutput: Int) {
 
 
     companion object {
@@ -63,7 +63,7 @@ class CalculatorTest(val expression: List<MathItem>, val expectedOutput: Int) {
         }
     }
 
-    val tested = Calculator()
+    val tested = SimpleCalculator()
 
     @Test
     fun calculate() {
